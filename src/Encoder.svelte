@@ -40,7 +40,7 @@
 		startPoint.x = event.pageX;
 		startPoint.y = event.pageY;
 		dispatch('cw', {});
-		popup.add('click');
+		popup.add('cw');
 		moved = true;
 	}
 
@@ -49,7 +49,7 @@
 		startPoint.x = event.pageX;
 		startPoint.y = event.pageY;
 		dispatch('ccw', {});
-		popup.add('click');
+		popup.add('ccw');
 		moved = true;
 	}
 
