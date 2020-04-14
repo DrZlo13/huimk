@@ -1,7 +1,11 @@
 <script>
 	import Display, {pixelFormatEnum} from './Display.svelte';
 	import Encoder from "./Encoder.svelte";
-	import { onMount } from 'svelte';
+	import Button from "./Button.svelte";
+	import Led7Segment from "./Led7Segment.svelte"
+	import {onMount} from 'svelte';
+	import Panel from "./Panel.svelte";
+	import Led from "./Led.svelte";
 
 	let display;
 	let x = 0;
@@ -9,6 +13,7 @@
 
 	onMount(() => {
 		let frame;
+		mainInit();
 
 		(function loop() {
 			frame = requestAnimationFrame(loop);
@@ -21,45 +26,71 @@
 		};
 	});
 
-	function cwX() {
-		x++;
+
+	let index = 0;
+	let time = 0;
+
+	let ledDisplay;
+	let leds = [];
+	let buttons = [];
+
+	for (let i = 0; i < 8; i++) {
+		buttons[i] = {
+			id: i
+		};
+
+		leds[i] = {
+			id: i,
+			active: false,
+		};
 	}
 
-	function ccwX() {
-		x--;
-	}
-
-	function cwY() {
-		y++;
-	}
-
-	function ccwY() {
-		y--;
+	function mainInit() {
+		ledDisplay.setValue('abcdefgh');
 	}
 
 	function mainLoop() {
-		display.clear(display.colorRGB(0, 0, 0));
-		display.drawHLine(y, display.colorRGB(255, 0, 0));
-		display.drawVLine(x, display.colorRGB(0, 255, 0));
-		display.fillRect(x-3, y-3, x+3, y+3, display.colorRGB(0, 0, 255));
-		display.doRender();
+		let currentTime = performance.now();
+		if (currentTime - time > 250) {
+			time = currentTime;
+			for (let i = 0; i < buttons.length; i++) {
+				leds[i].active = false;
+			}
+
+			leds[index].active = true;
+			index++;
+			if (index >= buttons.length) index = 0;
+		}
 	}
 
+	function onButtonReleased(index) {
+		buttons[index].led = !buttons[index].led;
+	}
 </script>
 
 <main>
-	<Display bind:this={display} width={160} height="{80}" pixelFormat="{pixelFormatEnum.rgb565}" scale="2"/>
-	<div>
-		<Encoder on:cw={cwX} on:ccw={ccwX}/>
-		<Encoder on:cw={cwY} on:ccw={ccwY}/>
-	</div>
+	<Panel style="display: flex; justify-content: space-around; padding-bottom: 10px;">
+		{#each leds as led (led.id)}
+			<Led active={led.active}/>
+		{/each}
+	</Panel>
+
+    <Panel>
+		<Led7Segment bind:this={ledDisplay} ledNum="8" height="120"/>
+    </Panel>
+
+    <Panel style="display: flex; justify-content: space-around; padding-top: 10px;">
+        {#each buttons as button (button.id)}
+			<Button led={button.led} radius="8" on:released={() => onButtonReleased(button.id)}/>
+        {/each}
+    </Panel>
 </main>
 
 <style>
 	main {
 		text-align: center;
 		padding: 1em;
-		max-width: 240px;
+		max-width: 596px;
 		margin: 0 auto;
 	}
 
@@ -68,12 +99,6 @@
 		text-transform: uppercase;
 		font-size: 4em;
 		font-weight: 100;
-	}
-
-	@media (min-width: 640px) {
-		main {
-			max-width: none;
-		}
 	}
 
 	* {
