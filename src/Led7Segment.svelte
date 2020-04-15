@@ -19,7 +19,11 @@
 		value = value.toString().toLowerCase();
 		let segmentIndex = ledCount - 1;
 
-		for (var i = value.length - 1; i >= 0; i--) {
+		for (let i = 0; i < ledCount; i++) {
+			segments[i].led = 0;
+		}
+
+		for (let i = value.length - 1; i >= 0; i--) {
 			let fontLetter = font[value.charAt(i)];
 
 			if(segmentIndex >= 0) {
