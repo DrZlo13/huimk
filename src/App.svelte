@@ -23,10 +23,6 @@
 		};
 	});
 
-
-
-	let time = 0;
-
 	let ledDisplay;
 	let leds = [];
 	let buttons = [];
