@@ -189,7 +189,8 @@
             case pixelFormatEnum.rgb:
                 break;
             case pixelFormatEnum.bw:
-                if((red + green + blue) > 384){
+                // TODO: function to set threshold
+                if((red + green + blue) > 1){
 					red = green = blue = 255;
                 }else{
 					red = green = blue = 0;
@@ -243,7 +244,34 @@
 	}
 
 	export function drawLine(x1, y1, x2, y2, color){
+		x1 = Math.floor(x1);
+		y1 = Math.floor(y1);
+		x2 = Math.floor(x2);
+		y2 = Math.floor(y2);
 
+		var deltaX = Math.abs(x2 - x1);
+		var deltaY = Math.abs(y2 - y1);
+		var signX = x1 < x2 ? 1 : -1;
+		var signY = y1 < y2 ? 1 : -1;
+		var error = deltaX - deltaY;
+
+		setPixel(x2, y2, color);
+		while(x1 !== x2 || y1 !== y2)
+		{
+			setPixel(x1, y1, color);
+			var error2 = error * 2;
+			//
+			if(error2 > -deltaY)
+			{
+				error -= deltaY;
+				x1 += signX;
+			}
+			if(error2 < deltaX)
+			{
+				error += deltaX;
+				y1 += signY;
+			}
+		}
 	}
 
 	export function doRender(){
