@@ -18,7 +18,7 @@
 
 	function mouseUp(event) {
 		if(!moved && mouseButtonPressed === true){
-			pressed();
+			click();
 		}
 		mouseButtonPressed = false;
 	}
@@ -28,6 +28,12 @@
 		moved = false;
 		startPoint.x = event.pageX;
 		startPoint.y = event.pageY;
+		pressed();
+	}
+
+	function click() {
+		dispatch('click', {});
+		popup.add('click');
 	}
 
 	function pressed() {
