@@ -1,14 +1,14 @@
 <script>
 	// dp g f e d c b a
-	export let ledNum = 1;
+	export let ledCount = 1;
 	export let width = false;
 	export let height = 320;
-	export let color = 'red';
-	export let bgColor = '#262626';
+	export let activeColor = 'red';
+	export let backgroundColor = '#262626';
 
 	let segments = [];
 
-	for(let i = 0; i < ledNum; i ++){
+	for(let i = 0; i < ledCount; i ++){
 		segments[i] = {
 			id: i,
 			led: 0,
@@ -17,7 +17,7 @@
 
 	export function setValue(value){
 		value = value.toString().toLowerCase();
-		let segmentIndex = ledNum - 1;
+		let segmentIndex = ledCount - 1;
 
 		for (var i = value.length - 1; i >= 0; i--) {
 			let fontLetter = font[value.charAt(i)];
@@ -36,7 +36,7 @@
 	}
 
 	export function setValueAt(value, index){
-		if(index >= 0 && index < ledNum){
+		if(index >= 0 && index < ledCount){
 			value = value.toString().toLowerCase();
 
 			let fontLetter = font[value];
@@ -52,7 +52,7 @@
 	}
 
 	export function setPointAt(pointValue, index){
-		if(index >= 0 && index < ledNum){
+		if(index >= 0 && index < ledCount){
 			if(pointValue == true){
 				segments[index].led |= 0b10000000;
 			} else {
@@ -115,14 +115,14 @@
         	height: ${height}px;
     	`}"
 	>
-		<polygon id="a" fill="{`${(segment.led & 0b00000001) ? color : bgColor}`}" points="43.4,32 59.9,16.8 151.1,16.8 165,32 148.5,47.2 57.3,47.2 "/>
-		<polygon id="b" fill="{`${(segment.led & 0b00000010) ? color : bgColor}`}" points="167.9,35.2 181.8,50.4 173.8,141.6 157.3,156.8 143.4,141.6 151.4,50.4 "/>
-		<polygon id="c" fill="{`${(segment.led & 0b00000100) ? color : bgColor}`}" points="156.7,163.2 170.6,178.4 162.6,269.6 146.1,284.8 132.2,269.6 140.2,178.4 "/>
-		<polygon id="d" fill="{`${(segment.led & 0b00001000) ? color : bgColor}`}" points="142.6,288 126.1,303.2 34.9,303.2 21,288 37.5,272.8 128.7,272.8 "/>
-		<polygon id="e" fill="{`${(segment.led & 0b00010000) ? color : bgColor}`}" points="18.1,284.8 4.2,269.6 12.2,178.4 28.7,163.2 42.6,178.4 34.6,269.6 "/>
-		<polygon id="f" fill="{`${(segment.led & 0b00100000) ? color : bgColor}`}" points="29.3,156.8 15.4,141.6 23.4,50.4 39.9,35.2 53.8,50.4 45.8,141.6 "/>
-		<polygon id="g" fill="{`${(segment.led & 0b01000000) ? color : bgColor}`}" points="32.2,160 48.7,144.8 139.9,144.8 153.8,160 137.3,175.2 46.1,175.2 "/>
-		<circle id="dp" fill="{`${(segment.led & 0b10000000) ? color : bgColor}`}" cx="174.6" cy="288.1" r="13.9"/>
+		<polygon id="a" fill="{`${(segment.led & 0b00000001) ? activeColor : backgroundColor}`}" points="43.4,32 59.9,16.8 151.1,16.8 165,32 148.5,47.2 57.3,47.2 "/>
+		<polygon id="b" fill="{`${(segment.led & 0b00000010) ? activeColor : backgroundColor}`}" points="167.9,35.2 181.8,50.4 173.8,141.6 157.3,156.8 143.4,141.6 151.4,50.4 "/>
+		<polygon id="c" fill="{`${(segment.led & 0b00000100) ? activeColor : backgroundColor}`}" points="156.7,163.2 170.6,178.4 162.6,269.6 146.1,284.8 132.2,269.6 140.2,178.4 "/>
+		<polygon id="d" fill="{`${(segment.led & 0b00001000) ? activeColor : backgroundColor}`}" points="142.6,288 126.1,303.2 34.9,303.2 21,288 37.5,272.8 128.7,272.8 "/>
+		<polygon id="e" fill="{`${(segment.led & 0b00010000) ? activeColor : backgroundColor}`}" points="18.1,284.8 4.2,269.6 12.2,178.4 28.7,163.2 42.6,178.4 34.6,269.6 "/>
+		<polygon id="f" fill="{`${(segment.led & 0b00100000) ? activeColor : backgroundColor}`}" points="29.3,156.8 15.4,141.6 23.4,50.4 39.9,35.2 53.8,50.4 45.8,141.6 "/>
+		<polygon id="g" fill="{`${(segment.led & 0b01000000) ? activeColor : backgroundColor}`}" points="32.2,160 48.7,144.8 139.9,144.8 153.8,160 137.3,175.2 46.1,175.2 "/>
+		<circle id="dp" fill="{`${(segment.led & 0b10000000) ? activeColor : backgroundColor}`}" cx="174.6" cy="288.1" r="13.9"/>
 	</svg>
 {/each}
 </div>

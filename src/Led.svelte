@@ -1,8 +1,8 @@
 <script>
     export let form = 'round';
     export let active = false;
-	export let color = 'red';
-	export let bgColor = '#262626';
+	export let backgroundColor = '#262626';
+	export let activeColor = 'red';
 
 	export let width = false;
 	export let height = 50;
@@ -13,9 +13,8 @@
 	style="{`
         	width: ${width ? width : height}px;
         	height: ${height}px;
-        	height: ${height}px;
-        	${active ? 'box-shadow: 0 0 8px 4px ' + color : ''};
-        	${active ? 'background: ' + color : 'background: ' + bgColor };
+        	${active ? 'box-shadow: 0 0 8px 4px ' + activeColor : ''};
+        	${active ? 'background: ' + activeColor : 'background: ' + backgroundColor };
         	${form === 'round' ? 'border-radius: 50%' : ''};
     	`}"
 >
