@@ -1,4 +1,4 @@
-# Hardware interface mockup kit
+# Hardware user interface mockup kit
 
 This is a project based on js framework [Svelte](https://svelte.dev). It provide "hardware ui emulation" components kit for fast idea prototyping and sharing. [More info (RU)](https://telegra.ph/Hardware-User-Interface-Mockup-Kit-04-15).
 
