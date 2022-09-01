@@ -88,45 +88,34 @@
     bind:this={encoder}
     on:mousedown={mouseDown}
     class="dial"
-    style="{`
+    style={`
              width: ${radius * 2}px;
              height: ${radius * 2}px;
              transform: rotate(${degrees}deg);
-             background: ${
-               mouseButtonPressed
-                 ? `hsl(${hue}, ${sat}%, 61%)`
-                 : `hsl(${hue}, ${sat}%, 34%)`
-             };
+             background: ${mouseButtonPressed ? "#9b9b9b" : "#575757"}
          `}
-"
   >
+    <div
+      class="dial-center"
+      style={`
+             width: ${radius}px;
+             height: ${radius}px;
+             top: ${(radius - 10) / 2}px;
+             left: ${(radius - 10) / 2}px;
+             border: 5px solid #6a6a6a;
+             background: hsl(${hue}, ${sat}%, 50%);
+         `}
+    />
     {#each pointers as pointer (pointer.id)}
       <div
-        style={`
-          height: ${radius / 4}px; 
-          transform: rotate(${pointer.angle}deg); 
-          transform-origin: 50% ${radius}px;
-          background: ${
-            mouseButtonPressed
-              ? `hsl(${hue}, ${sat}%, 45%)`
-              : `hsl(${hue}, ${sat}%, 26%)`
-          };
-        `}
+        style={`height: ${radius / 4}px; transform: rotate(${
+          pointer.angle
+        }deg); transform-origin: 50% ${radius}px;`}
         class="pointer-s"
       />
     {/each}
 
-    <div
-      class="pointer"
-      style={`
-      height: ${radius / 2}px;
-      background: ${
-        mouseButtonPressed
-          ? `hsl(${hue}, ${sat}%, 20%)`
-          : `hsl(${hue}, ${sat}%, 10%)`
-      };
-    `}
-    />
+    <div class="pointer" style={`height: ${radius / 2}px;`} />
   </div>
 
   <Popup bind:this={popup} />
@@ -141,14 +130,23 @@
   .dial {
     width: 0;
     height: 0;
+    background: #575757;
     position: relative;
     border-radius: 50%;
     transition: transform 0.05s linear;
   }
 
+  .dial-center {
+    width: 0;
+    height: 0;
+    position: relative;
+    border-radius: 50%;
+  }
+
   .pointer {
     width: 10px;
     height: 50px;
+    background: #000000;
     position: absolute;
     margin-left: -5px;
     left: 50%;
@@ -158,6 +156,7 @@
   .pointer-s {
     width: 4px;
     height: 50px;
+    background: #4a4a4a;
     position: absolute;
     margin-left: -2px;
     left: 50%;

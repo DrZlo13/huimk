@@ -2,6 +2,8 @@
   export const pixelFormatEnum = Object.freeze({ bw: 1, rgb: 2, rgb565: 3 });
 </script>
 
+<svelte:options accessors/>
+
 <script>
   import { onMount } from "svelte";
 
