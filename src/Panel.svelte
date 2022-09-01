@@ -15,9 +15,10 @@
         	padding-bottom: ${offsetBottom}px;
         	padding-left: ${offsetLeft}px;
         	padding-right: ${offsetRight}px;
-        	${justify === 'around' ? 'justify-content: space-around' : ''};
-        	${justify === 'center' ? 'justify-content: center' : ''};
-        	${direction === 'column' ? 'flex-direction: column' : ''};
-    	`}>
+        	${justify === "around" ? "justify-content: space-around" : ""};
+        	${justify === "center" ? "justify-content: center" : ""};
+        	${direction === "column" ? "flex-direction: column" : ""};
+    	`}
+>
   <slot />
 </div>
