@@ -7,6 +7,8 @@
   export let clickCount = 24;
   export let radius = 50;
   export let pixelStep = 10;
+  export let hue = 0;
+  export let sat = 0;
 
   let mouseButtonPressed = false;
   let encoder;
@@ -80,42 +82,6 @@
   }
 </script>
 
-<style>
-  .container {
-    position: relative;
-    display: inline-block;
-  }
-
-  .dial {
-    width: 0;
-    height: 0;
-    background: #575757;
-    position: relative;
-    border-radius: 50%;
-    transition: transform 0.05s linear;
-  }
-
-  .pointer {
-    width: 10px;
-    height: 50px;
-    background: #000000;
-    position: absolute;
-    margin-left: -5px;
-    left: 50%;
-    top: 0;
-  }
-
-  .pointer-s {
-    width: 4px;
-    height: 50px;
-    background: #4a4a4a;
-    position: absolute;
-    margin-left: -2px;
-    left: 50%;
-    top: 0;
-  }
-</style>
-
 <svelte:body on:mouseup={mouseUp} on:mousemove={mouseMove} />
 <div class="container">
   <div
@@ -126,17 +92,75 @@
              width: ${radius * 2}px;
              height: ${radius * 2}px;
              transform: rotate(${degrees}deg);
-             background: ${mouseButtonPressed ? '#9b9b9b' : '#575757'}
+             background: ${
+               mouseButtonPressed
+                 ? `hsl(${hue}, ${sat}%, 61%)`
+                 : `hsl(${hue}, ${sat}%, 34%)`
+             };
          `}
-">
+"
+  >
     {#each pointers as pointer (pointer.id)}
       <div
-        style={`height: ${radius / 4}px; transform: rotate(${pointer.angle}deg); transform-origin: 50% ${radius}px;`}
-        class="pointer-s" />
+        style={`
+          height: ${radius / 4}px; 
+          transform: rotate(${pointer.angle}deg); 
+          transform-origin: 50% ${radius}px;
+          background: ${
+            mouseButtonPressed
+              ? `hsl(${hue}, ${sat}%, 45%)`
+              : `hsl(${hue}, ${sat}%, 26%)`
+          };
+        `}
+        class="pointer-s"
+      />
     {/each}
 
-    <div class="pointer" style={`height: ${radius / 2}px;`} />
+    <div
+      class="pointer"
+      style={`
+      height: ${radius / 2}px;
+      background: ${
+        mouseButtonPressed
+          ? `hsl(${hue}, ${sat}%, 20%)`
+          : `hsl(${hue}, ${sat}%, 10%)`
+      };
+    `}
+    />
   </div>
 
   <Popup bind:this={popup} />
 </div>
+
+<style>
+  .container {
+    position: relative;
+    display: inline-block;
+  }
+
+  .dial {
+    width: 0;
+    height: 0;
+    position: relative;
+    border-radius: 50%;
+    transition: transform 0.05s linear;
+  }
+
+  .pointer {
+    width: 10px;
+    height: 50px;
+    position: absolute;
+    margin-left: -5px;
+    left: 50%;
+    top: 0;
+  }
+
+  .pointer-s {
+    width: 4px;
+    height: 50px;
+    position: absolute;
+    margin-left: -2px;
+    left: 50%;
+    top: 0;
+  }
+</style>
