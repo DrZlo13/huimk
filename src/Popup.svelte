@@ -30,6 +30,20 @@
   }
 </script>
 
+{#each popups as popup (popup.id)}
+  <div
+    style="
+      pointer-events: none; 
+      animation-duration: {popup.timeout}ms; 
+      left: {Math.random() * 80 + 20}%;
+    "
+    on:animationend={() => remove(popup.id)}
+    class="popup"
+  >
+    {popup.text}
+  </div>
+{/each}
+
 <style>
   .popup {
     padding: 5px 15px;
@@ -55,12 +69,3 @@
     }
   }
 </style>
-
-{#each popups as popup (popup.id)}
-  <div
-    style="pointer-events: none; animation-duration: {popup.timeout}ms; left: {Math.random() * 80 + 20}%;"
-    on:animationend={() => remove(popup.id)}
-    class="popup">
-    {popup.text}
-  </div>
-{/each}
